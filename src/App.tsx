@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { EditorComponent } from './views/editor'
+import { AsideMenu } from './views/menu'
+// import { Button } from 'antd'
 
-function App() {
+function App({ activeMenu, toggleMenu }: any) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="app">
+      <AsideMenu />
+      <EditorComponent />
+      <div onClick={ toggleMenu }>{ activeMenu }</div>
     </div>
-  );
+  )
 }
 
-export default App;
+const getMenu = (menu: any) => menu.activeMenu
+const mapStateToProps = (state: any) => {
+  return {
+    activeMenu: getMenu(state),
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    toggleMenu: (menu: string) => {
+      dispatch({ type: 'TOGGLE_MENU', menu: 'nihao' })
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App)

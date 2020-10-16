@@ -1,0 +1,22 @@
+@import '~antd/dist/antd.css';
+@import './global';
+@import './menu';
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $grey-dk;
+}
+main {
+  @include box;
+}
+
+#app {
+  @include box;
+  display: flex;
+}
