@@ -1,0 +1,7 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "comma-dangle": ["warn", "always-multiline"],
+    "no-redeclare": "off"
+  }
+}

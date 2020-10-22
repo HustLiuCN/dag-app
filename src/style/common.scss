@@ -1,6 +1,9 @@
 @import '~antd/dist/antd.css';
 @import './global';
 @import './menu';
+@import './content.scss';
+@import './editor.scss';
+@import './dialog.scss';
 
 * {
   margin: 0;
@@ -10,7 +13,8 @@
 }
 
 body {
-  background-color: $grey-dk;
+  // background-color: $grey-dk;
+
 }
 main {
   @include box;
@@ -19,4 +23,5 @@ main {
 #app {
   @include box;
   display: flex;
+  flex-direction: row;
 }

@@ -1,36 +1,15 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { EditorComponent } from './views/editor'
-import { AsideMenu } from './views/menu'
-// import { Button } from 'antd'
+import AsideMenu from './views/menu'
+import { Layout } from 'antd'
+import Content from './views/content'
+import DialogComponent from './views/dialog'
 
-function App({ activeMenu, toggleMenu }: any) {
+export default function App() {
   return (
-    <div id="app">
+    <Layout id="app">
       <AsideMenu />
-      <EditorComponent />
-      <div onClick={ toggleMenu }>{ activeMenu }</div>
-    </div>
+      <Content />
+      <DialogComponent />
+    </Layout>
   )
 }
-
-const getMenu = (menu: any) => menu.activeMenu
-const mapStateToProps = (state: any) => {
-  return {
-    activeMenu: getMenu(state),
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    toggleMenu: (menu: string) => {
-      dispatch({ type: 'TOGGLE_MENU', menu: 'nihao' })
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App)

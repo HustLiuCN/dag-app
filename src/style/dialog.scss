@@ -1,0 +1,23 @@
+.btn-box {
+  display: flex;
+}
+
+.shape-editor-dialog {
+  .btn-box {
+    .ant-btn {
+      margin-right: 10px;
+    }
+  }
+}
+
+.join-span {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  .iconfont {
+    font-size: 12px;
+    color: $grey-dk;
+  }
+}
