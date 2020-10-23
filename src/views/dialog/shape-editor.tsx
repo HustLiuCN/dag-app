@@ -1,16 +1,21 @@
 import * as React from 'react'
-import { Button, Drawer, Row, Form, Col, Input, Select } from 'antd'
+import { Button, Drawer, Row, Form, Col, Input } from 'antd'
 import { Dispatch } from 'redux'
 import { Shapes } from 'src/store/shape'
 import COLOR from 'src/lib/color'
 import { FormInstance } from 'antd/lib/form'
+// import { randomID } from 'src/lib/utils'
+import { addShape } from 'src/actions/shape'
+import { connect } from 'react-redux'
+import { IState } from 'src/store'
+
 
 const initialShape: Shapes.IShape = {
   w: 180,
-  h: 60,
-  shape: '',
+  h: 40,
+  shape: 'shape_123',
   name: '一个矩形',
-  color: COLOR.blue
+  color: COLOR.blue,
 }
 
 class ShapeEditor extends React.Component<ShapeEditor.IProps> {
@@ -21,7 +26,11 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
     if (!form) {
       return
     }
-    console.log(form.getFieldsValue())
+    const shape: Shapes.IShape = form.getFieldsValue()
+    shape.color = COLOR.green
+    shape.anchors = []
+    console.log(this.props.shapeList)
+    this.props.addShape(shape)
   }
 
   close = () => {
@@ -48,7 +57,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
         visible={ this.props.visible }
         onClose={ this.close }
         footer={
-          <Footer onSubmit={ this.submit } />
+          <Footer onSubmit={ this.submit } onCancel={ this.close } />
         }>
         <Form
           ref={ this.formRef }
@@ -60,7 +69,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
           onFinish={ this.onFinish }
           onFinishFailed={ this.onFinishFailed }>
           <Form.Item label="标识" name="shape" extra={
-            <small>唯一标识,建议使用[字母,数字]</small>
+            <small>唯一标识,建议使用字母数字组合</small>
           }>
             <Input />
           </Form.Item>
@@ -92,30 +101,44 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
 
 function Footer({
   onSubmit,
+  onCancel,
 }: {
   onSubmit(): void,
+  onCancel(): void,
 }) {
   return (
     <div className="btn-box">
       <Button type="primary" size="small" onClick={ onSubmit }>确定</Button>
-      <Button size="small">取消</Button>
+      <Button size="small" onClick={ onCancel }>取消</Button>
     </div>
   )
 }
 
+const mapState = (state: IState) => {
+  const { shape } = state
+  return {
+    ...shape
+  }
+}
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {
-
+    addShape: (shape: Shapes.IShape) => {
+      return dispatch(addShape(shape))
+    },
   }
 }
 
 declare namespace ShapeEditor {
-  export interface IProps {
+  export interface IProps extends Shapes.IState {
     visible: boolean,
     close(): void,
     // dispatch: Dispatch,
+    addShape(shape: Shapes.IShape): void,
   }
 }
 
-export default ShapeEditor
+export default connect(
+  mapState,
+  mapDispatch,
+)(ShapeEditor)

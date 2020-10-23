@@ -11,3 +11,7 @@ export function addList<T>(arr: T[], item: T): T[] {
     item,
   ]
 }
+
+export function randomID(): string {
+  return Date.now().toString(16)
+}

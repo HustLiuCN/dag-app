@@ -45,7 +45,13 @@ class ItemPanel extends React.Component<ItemPanel.IProps, ItemPanel.IState> {
             <i className="iconfont icon-edit"></i>
           </span> */}
         </div>
-        <div className="item-list"></div>
+        <div className="item-list">
+          {
+            this.props.shapeList.map(s => (
+              <div className="shape-item" data-shape={ s.shape } key={ s.shape }>{ s.name }</div>
+            ))
+          }
+        </div>
       </div>
     )
   }

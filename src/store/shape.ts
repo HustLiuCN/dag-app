@@ -48,11 +48,11 @@ export declare namespace Shapes {
 
 // handlers
 function addShape(list: Shapes.IShape[], shape: Shapes.IShape): Shapes.IShape[] {
-  return list.find(li => li.name === shape.name) ? list : addList(list, shape)
+  return list.find(li => li.shape === shape.name) ? list : addList(list, shape)
 }
 
 function delShape(list: Shapes.IShape[], name: string): Shapes.IShape[] {
-  let i = list.findIndex(li => li.name === name)
+  let i = list.findIndex(li => li.shape === name)
   if (i > -1) {
     return removeListByIndex(list, i)
   }

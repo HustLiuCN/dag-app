@@ -2,10 +2,12 @@ import * as React from 'react';
 import { Editor } from 'simple-dag-editor'
 import ItemPanel from './editor-itempanel'
 
-import shapes from '../../lib/shape'
+import { IState } from 'src/store';
+import { connect } from 'react-redux';
+import { Shapes } from 'src/store/shape';
 
-export default class EditorComponent extends React.Component<any> {
-  // constructor(props: any) {
+class EditorComponent extends React.Component<EditorComponent.IProps> {
+  // constructor(props: EditorComponent.IProps) {
   //   super(props)
   // }
   componentDidMount() {
@@ -14,9 +16,18 @@ export default class EditorComponent extends React.Component<any> {
       itempanel: '#editor-itempanel',
       page: '#editor-page',
     })
+    this.editor = editor
     // console.log(editor)
-    for (let shape of shapes) {
-      editor.registerShape(shape.shape, shape)
+  }
+  editor?: Editor
+  componentDidUpdate(prev: EditorComponent.IProps) {
+    if (prev.shape.shapeList !== this.props.shape.shapeList) {
+      if (!this.editor) {
+        return
+      }
+      for (let shape of this.props.shape.shapeList) {
+        this.editor.registerShape(shape.shape, shape)
+      }
     }
   }
   render() {
@@ -28,3 +39,21 @@ export default class EditorComponent extends React.Component<any> {
     )
   }
 }
+
+const mapSate = (state: IState) => {
+  return {
+    activeMenu: state.menu.activeMenu,
+    shape: state.shape,
+  }
+}
+
+declare namespace EditorComponent {
+  export interface IProps {
+    activeMenu: string,
+    shape: Shapes.IState,
+  }
+}
+
+export default connect(
+  mapSate,
+)(EditorComponent)
