@@ -27,9 +27,25 @@
     "simple-dag-editor": "^1.0.6",
     "typescript": "~3.7.2"
   },
+  "eslintConfig": {
+    "extends": ["react-app"],
+    "rules": {
+      "comma-dangle": ["warn", "always-multiline"],
+      "no-redeclare": "off",
+      "no-template-curly-in-string": "off"
+    },
+    "overrides": [
+      {
+        "files": ["**/*.ts?(x)"],
+        "rules": {
+          "no-template-curly-in-string": "off"
+        }
+      }
+    ]
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

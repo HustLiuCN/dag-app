@@ -2,6 +2,7 @@
   "extends": "react-app",
   "rules": {
     "comma-dangle": ["warn", "always-multiline"],
-    "no-redeclare": "off"
+    "no-redeclare": "off",
+    "no-template-curly-in-string": "off"
   }
 }

@@ -43,6 +43,9 @@ export declare namespace Shapes {
   }
   export interface IShape extends Editor.IShape {
     category?: string,
+    graph?: 'rect' | 'ellipse' | 'circle' | 'diamond',
+    readonly input?: number,
+    readonly output?: number,
   }
 }
 
