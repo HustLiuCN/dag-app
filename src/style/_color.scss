@@ -4,6 +4,8 @@ $blue-micro: #e6f7ff;
 $blue-lt: #bae7ff;
 $blue: #1890ff;
 $blue-dk: #0050b3;
+$blue-lt-bg: rgba($blue-lt, .3);
+$blue-dk-bg: #001529;
 $green-micro: #f6ffed;
 $green-lt: #d9f7be;
 $green: #52c41a;
@@ -24,4 +26,9 @@ $grey-bg: #f5f5f5;
 $bd: #d9d9d9;
 
 $ft: #434343;
-$ft-sub: #bfbfbf;
+$ft-sub: #8c8c8c;
+$ft-lt: #bfbfbf;
+
+// bg
+$bg-dk: #001529;
+$bg-dk-lt: #053461;

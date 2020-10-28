@@ -3,11 +3,15 @@ import { connect } from 'react-redux'
 import { IState } from '../store'
 // import { Menu } from '../store/menu'
 import EditorComponent from './editor'
+import ProjectComponent from './project'
 
-function Content({ activeMenu }: { activeMenu: string }) {
+const Content = ({ activeMenu }: { activeMenu: string }) => {
   return (
     <div className="content-box">
-      <EditorComponent />
+      { activeMenu === 'project' && <ProjectComponent /> }
+      <div className="editor-wrapper">
+        <EditorComponent />
+      </div>
     </div>
   )
 }

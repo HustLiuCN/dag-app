@@ -24,19 +24,26 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "simple-dag-editor": "^1.0.6",
+    "simple-dag-editor": "^1.0.10",
     "typescript": "~3.7.2"
   },
   "eslintConfig": {
-    "extends": ["react-app"],
+    "extends": [
+      "react-app"
+    ],
     "rules": {
-      "comma-dangle": ["warn", "always-multiline"],
+      "comma-dangle": [
+        "warn",
+        "always-multiline"
+      ],
       "no-redeclare": "off",
       "no-template-curly-in-string": "off"
     },
     "overrides": [
       {
-        "files": ["**/*.ts?(x)"],
+        "files": [
+          "**/*.ts?(x)"
+        ],
         "rules": {
           "no-template-curly-in-string": "off"
         }

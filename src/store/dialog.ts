@@ -2,7 +2,8 @@ import { Reducer } from "redux"
 import { CLOSE_DIALOG, OPEN_DIALOG, TOGGLE_DIALOG } from "src/actions"
 
 export const DialogStatus = {
-  visible: true,
+  visible: false,
+  type: null,
 }
 
 export const dialogReducer: Reducer<Dialog.IState> = (state = DialogStatus, action) => {
@@ -10,11 +11,12 @@ export const dialogReducer: Reducer<Dialog.IState> = (state = DialogStatus, acti
     case OPEN_DIALOG:
       return {
         visible: true,
+        type: action.dialogType,
       }
     case CLOSE_DIALOG:
-      return { visible: false }
+      return { visible: false, type: null }
     case TOGGLE_DIALOG:
-      return { visible: !state.visible }
+      return { visible: !state.visible, type: null }
     default:
       return state
   }
@@ -23,5 +25,6 @@ export const dialogReducer: Reducer<Dialog.IState> = (state = DialogStatus, acti
 export declare namespace Dialog {
   export interface IState {
     visible: boolean,
+    type: string | null | undefined,
   }
 }

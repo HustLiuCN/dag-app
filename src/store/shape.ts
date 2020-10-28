@@ -1,12 +1,17 @@
 import { Reducer } from 'redux'
 import { Editor } from 'simple-dag-editor'
 import { ADD_SHAPE, DEL_SHAPE, ADD_CATEGORY, DEL_CATEGORY } from '../actions'
+import defaultShapes from 'src/lib/defaultShapes'
 
 import { removeListByIndex, addList } from '../lib/utils'
 
 export const Shapes = {
-  shapeList: [],
-  categoryList: [],
+  shapeList: [
+    ...defaultShapes,
+  ],
+  categoryList: [
+    '矩形',
+  ],
 }
 
 export const shapesReducer: Reducer<Shapes.IState> = (state = Shapes, action) => {
@@ -42,6 +47,7 @@ export declare namespace Shapes {
     shapeList: IShape[],
   }
   export interface IShape extends Editor.IShape {
+    name: string,
     category?: string,
     graph?: 'rect' | 'ellipse' | 'circle' | 'diamond',
     readonly input?: number,

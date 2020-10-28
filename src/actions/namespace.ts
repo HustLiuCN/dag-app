@@ -11,3 +11,8 @@ export const DEL_CATEGORY = 'DEL_CATEGORY'
 export const CLOSE_DIALOG = 'CLOSE_DIALOG'
 export const TOGGLE_DIALOG = 'TOGGLE_DIALOG'
 export const OPEN_DIALOG = 'OPEN_DIALOG'
+
+// project
+export const ADD_PROJECT = 'ADD_PROJECT'
+export const DEL_PROJECT = 'DEL_PROJECT'
+export const UPDATE_PROJECT = 'UPDATE_PROJECT'

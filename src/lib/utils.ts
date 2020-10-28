@@ -12,6 +12,6 @@ export function addList<T>(arr: T[], item: T): T[] {
   ]
 }
 
-export function randomID(): string {
+export function timeStamp16(): string {
   return Date.now().toString(16)
 }

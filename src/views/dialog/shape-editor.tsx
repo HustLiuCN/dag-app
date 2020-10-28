@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Drawer, Row, Form, Col, Input, Select, InputNumber } from 'antd'
+import { Button, Drawer, Row, Form, Col, Input, Select, InputNumber, message } from 'antd'
 import { Dispatch } from 'redux'
 import { Shapes } from 'src/store/shape'
 import COLOR from 'src/lib/color'
@@ -8,7 +8,7 @@ import { FormInstance } from 'antd/lib/form'
 import { addShape } from 'src/actions/shape'
 import { connect } from 'react-redux'
 import { IState } from 'src/store'
-import { Editor } from 'simple-dag-editor'
+import { serialiseFormToShape } from 'src/lib/shape'
 
 // default shape
 const defaultShapeForm: ShapeEditor.IForm = {
@@ -32,9 +32,17 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
     if (!form) {
       return
     }
-    const shape = this.serialiseFormToShape(form.getFieldsValue())
-    console.log(shape)
-    this.props.addShape(shape)
+    form.validateFields().then(() => {
+      const shape = serialiseFormToShape(form.getFieldsValue())
+      this.props.addShape(shape)
+      this.close()
+      message.success(`添加图形 ${shape.shape} 成功`)
+    }).catch(({ errorFields }) => {
+      if (errorFields.length) {
+        let err = errorFields[0]['name'][0]
+        form.scrollToField(err)
+      }
+    })
   }
 
   close = () => {
@@ -50,36 +58,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
     console.log('finish failed', a)
   }
 
-  serialiseFormToShape(form: ShapeEditor.IForm): Shapes.IShape {
-    let anchors = []
-    const { input, output } = form
-    if (input) {
-      const d = 1 / (input + 1)
-      for (let i = 0; i < input; i ++) {
-        let a: Editor.IAnchor = [
-          d * (i + 1),
-          0,
-          'input',
-        ]
-        anchors.push(a)
-      }
-    }
-    if (output) {
-      const d = 1 / (output + 1)
-      for (let i = 0; i < output; i ++) {
-        let a: Editor.IAnchor = [
-          d * (i + 1),
-          1,
-          'output',
-        ]
-        anchors.push(a)
-      }
-    }
-    return {
-      ...form,
-      anchors,
-    }
-  }
+
 
   render() {
     return (
@@ -106,7 +85,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
           <Form.Item
             label="唯一标识"
             name="shape"
-            tooltip={ <small>唯一标识,建议使用字母,数字,下划线组合</small> }
+            tooltip={ <small>唯一标识,建议使用[字母,数字,下划线,连字符]组合</small> }
             required
             rules={[
               {
@@ -115,11 +94,12 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
                   if (!val.length) {
                     return Promise.reject(<small>唯一标识 不能为空</small>)
                   }
-                  if (!val.match(/^\w+$/)) {
-                    return Promise.reject(<small>唯一标识 仅支持数字、字母、下划线</small>)
+                  if (!val.match(/^[\w-]+$/)) {
+                    return Promise.reject(<small>唯一标识 仅支持数字、字母、下划线、连字符</small>)
                   }
-                  // TODO
-                  console.log(this.props.shapeList)
+                  if (this.props.shapeList.find(s => s.shape === val)) {
+                    return Promise.reject(<small>该标识的图形已存在</small>)
+                  }
                   return Promise.resolve()
                 },
               },
@@ -205,7 +185,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
               <Select.Option value={ '' }>无</Select.Option>
               {
                 this.props.categoryList.map(c => (
-                  <Select.Option value={ c }>{ c }</Select.Option>
+                  <Select.Option value={ c } key={ c }>{ c }</Select.Option>
                 ))
               }
             </Select>
@@ -276,7 +256,7 @@ const mapDispatch = (dispatch: Dispatch) => {
   }
 }
 // interface
-declare namespace ShapeEditor {
+export declare namespace ShapeEditor {
   export interface IProps extends Shapes.IState {
     visible: boolean,
     close(): void,

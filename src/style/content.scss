@@ -1,4 +1,88 @@
 .content-box {
   position: relative;
   flex: 1;
+
+  display: flex;
+}
+
+// project
+.project-box {
+  flex: 0 0 450px;
+  display: flex;
+  flex-direction: column;
+
+  background-color: $bg-dk;
+  border-right: 1px solid $bd;
+  color: $white;
+
+  // search box
+  .search-box {
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+
+    .filter-btn {
+      // font-weight: bold;
+      @include search-btn(40px, 16px);
+
+      &.active {
+        color: $blue;
+      }
+    }
+
+    .add-btn {
+      @include circle-btn($white, 28px);
+      margin-left: 10px;
+      background-color: $bg-dk-lt;
+
+      &.active {
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .extra-box {
+    margin: 0 20px;
+    color: $ft;
+    overflow: hidden;
+    // height: 0;
+    transition: height .2s ease;
+
+    // &.extra-pro {
+    //   height: 64px;
+    // }
+  }
+  // new project
+  .new-project-box {
+    display: flex;
+    align-items: center;
+
+    // border-radius: 2px;
+    overflow: hidden;
+    // background-color: $white;
+
+    .left-box {
+      flex: 1;
+      background-color: $white;
+      border-radius: 2px;
+
+      .row {
+        height: 32px;
+      }
+      .label {
+        text-align: center;
+      }
+    }
+
+    .submit-btn {
+      @include circle-btn($white, 28px);
+      margin-left: 10px;
+      background-color: $green;
+    }
+  }
+}
+
+.editor-wrapper {
+  position: relative;
+  flex: 1;
 }

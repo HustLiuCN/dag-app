@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Editor } from 'simple-dag-editor'
-import ItemPanel from './editor-itempanel'
+import ItemPanel from './itempanel'
+import DetailPanel from './detailpanel'
 
 import { IState } from 'src/store';
 import { connect } from 'react-redux';
@@ -10,14 +11,19 @@ class EditorComponent extends React.Component<EditorComponent.IProps> {
   // constructor(props: EditorComponent.IProps) {
   //   super(props)
   // }
-  componentDidMount() {
+  initEditor() {
     const editor = new Editor({
       container: '#editor-container',
       itempanel: '#editor-itempanel',
       page: '#editor-page',
     })
     this.editor = editor
-    // console.log(editor)
+    for (let shape of this.props.shape.shapeList) {
+      this.editor.registerShape(shape.shape, shape)
+    }
+  }
+  componentDidMount() {
+    this.initEditor()
   }
   editor?: Editor
   componentDidUpdate(prev: EditorComponent.IProps) {
@@ -29,12 +35,17 @@ class EditorComponent extends React.Component<EditorComponent.IProps> {
         this.editor.registerShape(shape.shape, shape)
       }
     }
+    if (prev.activeMenu !== this.props.activeMenu && this.props.activeMenu === 'editor') {
+      this.initEditor()
+    }
   }
   render() {
+    const { activeMenu } = this.props
     return (
       <div className="editor-container" id="editor-container">
-        <ItemPanel />
+        { activeMenu === 'editor' && <ItemPanel /> }
         <div className="editor-page" id="editor-page"></div>
+        { activeMenu === 'editor' && <DetailPanel /> }
       </div>
     )
   }

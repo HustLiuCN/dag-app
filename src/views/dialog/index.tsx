@@ -9,15 +9,14 @@ import ShapeEditor from './shape-editor'
 class DialogComponent extends React.Component<DialogComponent.IProps> {
 
   close = () => {
-    console.log('dispatch')
     this.props.close()
   }
   render() {
-    console.log(this.props)
-    const { visible } = this.props
+    const { visible, type } = this.props
+    const shape = visible && type === 'new-shape'
     return (
       <React.Fragment>
-        {visible && <ShapeEditor close={ this.close } visible={ this.props.visible } />}
+        {shape && <ShapeEditor close={ this.close } visible={ this.props.visible } />}
       </React.Fragment>
     )
   }

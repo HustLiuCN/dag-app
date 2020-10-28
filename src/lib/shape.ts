@@ -1,30 +1,30 @@
 import { Editor } from 'simple-dag-editor'
-import COLOR from './color'
+import { Shapes } from 'src/store/shape'
+import { ShapeEditor } from 'src/views/dialog/shape-editor'
 
-const w = 160
-const h = 36
-const c = COLOR['blue']
-
-const shapes: Editor.IShape[] = [
-	{
-		shape: 'shape-001',
-		w, h, color: c,
-		name: 'Node-ABC',
+export function serialiseFormToShape(form: ShapeEditor.IForm): Shapes.IShape {
+	const { input, output } = form
+	const inputs = countToAnchors(input || 0, 'input')
+	const outputs = countToAnchors(output || 0, 'output')
+	return {
+		...form,
 		anchors: [
-			[0.5, 0, 'input'],		// [x, y, type]
-			[0.5, 1, 'output'],
+			...inputs,
+			...outputs,
 		],
-	},
-	{
-		shape: 'shape-002',
-		w, h, color: COLOR['green'],
-		name: 'Node-XYZ',
-		anchors: [
-			[0.5, 0, 'input'],
-			[0.3, 1, 'output'],
-			[0.7, 1, 'output'],
-		],
-	},
-]
+	}
+}
 
-export default shapes
+function countToAnchors(count: number, type: 'input' | 'output'): Editor.IAnchor[] {
+	const anchors = []
+	const d = 1 / (count + 1)
+	for (let i = 0; i < count; i ++) {
+		let anchor: Editor.IAnchor = [
+			d * (i + 1),
+			type === 'output' ? 1 : 0,
+			type,
+		]
+		anchors.push(anchor)
+	}
+	return anchors
+}

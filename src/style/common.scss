@@ -25,3 +25,17 @@ main {
   display: flex;
   flex-direction: row;
 }
+
+.divider-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: $grey;
+}
+
+// antd reset
+.ant-select-selector,
+.ant-input,
+.ant-input-number-input {
+  font-size: 12px;
+}

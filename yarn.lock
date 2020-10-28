@@ -10543,10 +10543,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://npm.corp.kuaishou.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha1-oUEMLt2PB3sItOJTyOrPyvBXRhw=
 
-simple-dag-editor@^1.0.6:
-  version "1.0.6"
-  resolved "https://npm.corp.kuaishou.com/simple-dag-editor/-/simple-dag-editor-1.0.6.tgz#80f0c1e7f7484a8c66d4dab32550868bc47ed548"
-  integrity sha512-kmRWfVp3cvs+HAZK6RzE/44tDpVSZcBR6z+hxJB7hPzdkcbPjlVtRVNSMBKRAIQEjZaUhW4V7rXSdmCynfuh0w==
+simple-dag-editor@^1.0.10:
+  version "1.0.10"
+  resolved "https://npm.corp.kuaishou.com/simple-dag-editor/-/simple-dag-editor-1.0.10.tgz#c3c4a4f4e35eeecc40ee92c68eb4a5dcfb720427"
+  integrity sha512-JN4IvfSURLcj68sLZPRsHJWXnH6On3pZsitFpMKkL1uWDRJhJ4AcKKAAbIFyip9soOmHhJ3IhP1AUMhN2aTBYg==
   dependencies:
     typescript "^4.0.3"
 
