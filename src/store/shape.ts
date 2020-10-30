@@ -50,8 +50,6 @@ export declare namespace Shapes {
     name: string,
     category?: string,
     graph?: 'rect' | 'ellipse' | 'circle' | 'diamond',
-    readonly input?: number,
-    readonly output?: number,
   }
 }
 

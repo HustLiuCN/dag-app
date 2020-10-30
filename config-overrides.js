@@ -11,6 +11,8 @@ const { useBabelRc, override, addWebpackAlias, addDecoratorsLegacy, useEslintRc 
 
 // module.exports = config
 
+console.log('=====override=====')
+
 function resolve(dir) {
   return path.join(__dirname, '.', dir)
 }

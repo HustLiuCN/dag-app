@@ -3,8 +3,12 @@ import { ADD_PROJECT, DEL_PROJECT } from "src/actions"
 import { removeListByIndex } from "src/lib/utils"
 
 export const Projects = {
-  projectList: [],
-  tagList: ['demo'],
+  projectList: [
+    { id: '1', name: '演示项目1', tags: ['demo', 'dag', '前端'] },
+    { id: '2', name: '演示项目2', tags: ['demo', '前端'] },
+    { id: '3', name: '演示项目3', tags: ['demo', 'dag'] },
+  ],
+  tagList: ['demo', 'dag', '前端'],
 }
 
 export const projectsReducer: Reducer<Projects.IState> = (state = Projects, action) => {

@@ -8,7 +8,6 @@ import { FormInstance } from 'antd/lib/form'
 import { addShape } from 'src/actions/shape'
 import { connect } from 'react-redux'
 import { IState } from 'src/store'
-import { serialiseFormToShape } from 'src/lib/shape'
 
 // default shape
 const defaultShapeForm: ShapeEditor.IForm = {
@@ -17,10 +16,12 @@ const defaultShapeForm: ShapeEditor.IForm = {
   shape: 'shape_123',
   name: '一个矩形',
   color: COLOR.green,
+  anchors: {
+    input: 1,
+    output: 1,
+  },
   graph: 'rect',
   category: '',
-  input: 1,
-  output: 1,
 }
 const graphs = [{ label: '矩形', val: 'rect' }]
 
@@ -33,7 +34,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
       return
     }
     form.validateFields().then(() => {
-      const shape = serialiseFormToShape(form.getFieldsValue())
+      const shape = form.getFieldsValue()
       this.props.addShape(shape)
       this.close()
       message.success(`添加图形 ${shape.shape} 成功`)
@@ -162,7 +163,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
 
           <Form.Item
             label="输入点个数"
-            name="input"
+            name={[ 'anchors', 'input' ]}
             rules={[
               { type: 'integer', min: 0, max: 4 },
             ]}
@@ -172,7 +173,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
 
           <Form.Item
             label="输出点个数"
-            name="output"
+            name={[ 'anchors', 'output' ]}
             rules={[
               { type: 'integer', min: 0, max: 4 },
             ]}

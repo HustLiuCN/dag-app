@@ -1,7 +1,7 @@
 export function removeListByIndex<T>(arr: T[], i: number): T[] {
   return [
     ...arr.slice(0, i),
-    ...arr.slice(i + 1, 0),
+    ...arr.slice(i + 1),
   ]
 }
 

@@ -27,6 +27,7 @@
 
       &.active {
         color: $blue;
+        font-weight: bold;
       }
     }
 
@@ -41,6 +42,7 @@
     }
   }
 
+  // extra box
   .extra-box {
     margin: 0 20px;
     color: $ft;
@@ -51,6 +53,20 @@
     // &.extra-pro {
     //   height: 64px;
     // }
+  }
+  // tags filter
+  .tags-filter {
+    display: flex;
+    align-items: center;
+    color: $white;
+
+    .label {
+      flex: 0 0 40px;
+    }
+    .ant-tag {
+      color: $white;
+      font-size: 12px;
+    }
   }
   // new project
   .new-project-box {
@@ -78,6 +94,81 @@
       @include circle-btn($white, 28px);
       margin-left: 10px;
       background-color: $green;
+    }
+  }
+
+  // project list
+  .project-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    .project-item {
+      display: flex;
+      height: 40px;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 14px;
+      color: rgba($white, .75);
+      transition: all .2s ease;
+      cursor: default;
+
+      .project-name {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: all .3s ease;
+      }
+      .tag-list {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        transition: all .3s ease;
+
+        .project-tag {
+          color: rgba($white, .75);
+          background-color: $bg-dk-lt;
+          border-color: $bg-dk-lt;
+        }
+      }
+      // handler
+      .handler-box {
+        display: flex;
+        flex: 0 0 0;
+        margin-left: 5px;
+        overflow: hidden;
+        transition: all .3s ease;
+
+        .iconfont {
+          @include circle-btn($white, 24px);
+          font-size: 12px;
+          margin-left: 5px;
+        }
+        .del-btn {
+          background-color: lighten($red, .75);
+        }
+        .edit-btn {
+          background-color: lighten($green, .75);
+        }
+      }
+
+      &:hover,
+      &.active {
+        color: $white;
+        background-color: $bg-dk-lt;
+        box-shadow: inset 0 0 10px rgba($black, .4);
+
+        .project-tag {
+          color: $white;
+          background-color: $bg-dk;
+        }
+
+        .handler-box {
+          flex: 0 0 60px;
+        }
+      }
     }
   }
 }

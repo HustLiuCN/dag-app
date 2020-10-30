@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import './style/common.scss'
 import App from './App'
-import * as serviceWorker from './serviceWorker'
+// import * as serviceWorker from './serviceWorker'
 import { store } from './store'
 
 ReactDOM.render(
@@ -19,4 +19,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister()
-serviceWorker.register()
+// serviceWorker.register()
