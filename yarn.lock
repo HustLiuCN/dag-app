@@ -10836,11 +10836,12 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://npm.corp.kuaishou.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha1-oUEMLt2PB3sItOJTyOrPyvBXRhw=
 
-simple-dag-editor@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/simple-dag-editor/-/simple-dag-editor-1.1.3.tgz#6898c6ec7aea9e5517ba1d91643e9fe3cf02cc85"
-  integrity sha512-31gjqrcfGTsRuO0VX2N+RpGUi3ujqD8ipSYzpkX2qsov3cB4Ygx0i8VbvUKttzXQ6OaK2GGQucP6SP2Snt51HA==
+simple-dag-editor@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/simple-dag-editor/-/simple-dag-editor-1.1.4.tgz#9ea52e9232225a8a6c807cd507509a6970fe3f23"
+  integrity sha512-xrGmUiUlYjseftp+yxrrsN5rWJdGVt300W1W/jApFXuiyHzv7tdWmmdafpovOuL134fD3L8cNYUT0Fe/ev4Dpg==
   dependencies:
+    tinycolor2 "^1.4.2"
     typescript "^4.0.3"
 
 simple-swizzle@^0.2.2:
@@ -11537,7 +11538,7 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.3:
   resolved "https://npm.corp.kuaishou.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha1-lKMNtFPfTGQ9D9VmBg1gqHXYR1Q=
 
-tinycolor2@^1.4.1:
+tinycolor2@^1.4.1, tinycolor2@^1.4.2:
   version "1.4.2"
   resolved "https://npm.corp.kuaishou.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
   integrity sha1-P2pNEHGtB2dtf6Ry4frECnGdiAM=
