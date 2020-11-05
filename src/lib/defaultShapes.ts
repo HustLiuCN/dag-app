@@ -22,5 +22,17 @@ const shape2 = {
   },
 }
 
-const list = [shape1, shape2]
+const shape3 = {
+  w: 160,
+  h: 40,
+  shape: 'default-shape-003',
+  name: '两个输入一个输出的矩形',
+  color: COLOR.red,
+  anchors: {
+    input: 2,
+    output: 1,
+  },
+}
+
+const list = [shape1, shape2, shape3]
 export default list

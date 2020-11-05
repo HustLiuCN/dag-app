@@ -11,7 +11,6 @@ import { OPEN_DIALOG } from 'src/actions'
 class ItemPanel extends React.Component<ItemPanel.IProps, ItemPanel.IState> {
   constructor(props: ItemPanel.IProps) {
     super(props)
-    console.log(props)
 
     this.state = {
       filter: '',

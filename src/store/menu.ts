@@ -2,11 +2,11 @@ import { Reducer } from 'redux'
 import { TOGGLE_MENU } from '../actions'
 
 export const Menu: Menu.IState = {
-  activeMenu: 'editor',
+  activeMenu: 'contact',
   menus: [
     { key: 'project', name: 'project', desc: '项目列表', icon: 'icon-folder' },
     { key: 'editor', name: 'editor', desc: '画板', icon: 'icon-palette' },
-    { key: 'setting', name: 'setting', desc: '设置', icon: 'icon-setting' },
+    // { key: 'setting', name: 'setting', desc: '设置', icon: 'icon-setting' },
     { key: 'contact', name: 'contact', desc: '联系作者', icon: 'icon-contact' },
   ],
 }

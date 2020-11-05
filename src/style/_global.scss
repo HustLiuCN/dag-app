@@ -52,3 +52,9 @@
     color: $color;
   }
 }
+
+@mixin left-side-content($size: 450px, $color: $white) {
+  flex: 0 0 $size;
+  background-color: $bg-dk;
+  color: $color;
+}

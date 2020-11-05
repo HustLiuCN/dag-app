@@ -5,6 +5,7 @@ import { Menu, menuReducer } from './menu'
 import { Shapes, shapesReducer } from './shape'
 import { DialogStatus, Dialog, dialogReducer } from './dialog'
 import { Projects, projectsReducer } from './project'
+import { Dag, dagReducer } from './dag'
 
 // initial state
 export const initialState: IState = {
@@ -12,6 +13,7 @@ export const initialState: IState = {
   shape: Shapes,
   dialog: DialogStatus,
   project: Projects,
+  dag: Dag,
 }
 // root reducer
 const reducer: Reducer<IState> = combineReducers({
@@ -19,6 +21,7 @@ const reducer: Reducer<IState> = combineReducers({
   shape: shapesReducer,
   dialog: dialogReducer,
   project: projectsReducer,
+  dag: dagReducer,
 })
 // middleware
 const loggerMiddleware = createLogger()
@@ -37,4 +40,5 @@ export interface IState {
   shape: Shapes.IState,
   dialog: Dialog.IState,
   project: Projects.IState,
+  dag: Dag.IState,
 }

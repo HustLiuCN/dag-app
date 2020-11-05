@@ -47,9 +47,9 @@ export declare namespace Shapes {
     shapeList: IShape[],
   }
   export interface IShape extends Editor.IShape {
-    name: string,
     category?: string,
     graph?: 'rect' | 'ellipse' | 'circle' | 'diamond',
+    [custom_key: string]: any,
   }
 }
 

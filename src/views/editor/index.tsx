@@ -1,51 +1,99 @@
 import * as React from 'react';
 import { Editor } from 'simple-dag-editor'
 import ItemPanel from './itempanel'
-import DetailPanel from './detailpanel'
+import DetailPanel from './node-panel'
+import CanvasPanel from './canvas-panel'
 
 import { IState } from 'src/store';
 import { connect } from 'react-redux';
 import { Shapes } from 'src/store/shape';
+import { Dag } from 'src/store/dag';
+import { Dispatch } from 'redux';
+import { addNode, delNode } from 'src/actions/dag';
 
-class EditorComponent extends React.Component<EditorComponent.IProps> {
-  // constructor(props: EditorComponent.IProps) {
-  //   super(props)
-  // }
-  initEditor() {
+class EditorComponent extends React.Component<EditorComponent.IProps, EditorComponent.IState> {
+  constructor(props: EditorComponent.IProps) {
+    super(props)
+
+    // TODO
+    this.editor = null
+    this.state = {}
+  }
+  // dom mounted
+  componentDidMount() {
+    this.initEditor()
+  }
+  // TODO
+  // init editor
+  editor: Editor | null
+  initEditor = () => {
     const editor = new Editor({
       container: '#editor-container',
       itempanel: '#editor-itempanel',
       page: '#editor-page',
     })
     this.editor = editor
-    for (let shape of this.props.shape.shapeList) {
-      this.editor.registerShape(shape.shape, shape)
-    }
+    this.registerShape()
+    this.bind()
   }
-  componentDidMount() {
-    this.initEditor()
-  }
-  editor?: Editor
   componentDidUpdate(prev: EditorComponent.IProps) {
     if (prev.shape.shapeList !== this.props.shape.shapeList) {
-      if (!this.editor) {
-        return
-      }
-      for (let shape of this.props.shape.shapeList) {
-        this.editor.registerShape(shape.shape, shape)
-      }
+      this.registerShape()
     }
-    if (prev.activeMenu !== this.props.activeMenu && this.props.activeMenu === 'editor') {
-      this.initEditor()
+    // TODO
+    // if (prev.activeMenu !== this.props.activeMenu && this.props.activeMenu === 'editor') {
+    //   this.initEditor()
+    // }
+  }
+  // register shapes
+  registerShape = () => {
+    for (let shape of this.props.shape.shapeList) {
+      this.editor?.registerShape(shape.shape, shape)
     }
+  }
+  // register callback
+  bind = () => {
+    const { editor } = this
+    editor?.on('nodeAdded', this.addNode)
+    editor?.on('nodeDeleted', this.delNode)
+    editor?.on('selectedNodeChange', this.selectedNodeChange)
+  }
+  // node event
+  addNode = (node: Dag.INode) => {
+    this.props.addNode(node)
+  }
+  delNode = (id: string) => {
+    this.props.delNode(id)
+  }
+  selectedNodeChange = (node: Dag.INode) => {
+    this.setState({
+      selectedNodeId: node?.id,
+      selectedNode: node && this.props.dag.nodes[node.id],
+    })
   }
   render() {
     const { activeMenu } = this.props
+    const { selectedNode } = this.state
+
+    const panel = selectedNode
+                  ?
+                  (<DetailPanel selectedNode={ selectedNode } />)
+                  :
+                  (<CanvasPanel />)
+
     return (
       <div className="editor-container" id="editor-container">
         { activeMenu === 'editor' && <ItemPanel /> }
         <div className="editor-page" id="editor-page"></div>
-        { activeMenu === 'editor' && <DetailPanel /> }
+        {
+          activeMenu === 'editor'
+          &&
+          (
+            <div id="editor-detailpanel" className="editor-detailpanel">
+              { panel }
+            </div>
+          )
+        }
       </div>
     )
   }
@@ -55,6 +103,14 @@ const mapSate = (state: IState) => {
   return {
     activeMenu: state.menu.activeMenu,
     shape: state.shape,
+    dag: state.dag,
+  }
+}
+
+const mapDispatch = (dispatch: Dispatch) => {
+  return {
+    addNode: (node: Dag.INode) => dispatch(addNode(node)),
+    delNode: (id: string) => dispatch(delNode(id)),
   }
 }
 
@@ -62,9 +118,17 @@ declare namespace EditorComponent {
   export interface IProps {
     activeMenu: string,
     shape: Shapes.IState,
+    dag: Dag.IState,
+    addNode(n: Dag.INode): void,
+    delNode(id: string): void,
+  }
+  export interface IState {
+    selectedNode?: Dag.INode,
+    selectedNodeId?: string,
   }
 }
 
 export default connect(
   mapSate,
+  mapDispatch,
 )(EditorComponent)

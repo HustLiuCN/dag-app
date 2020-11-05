@@ -12,7 +12,7 @@ import TagsFilter from './tags-filter'
 class ProjectComponent extends React.Component<ProjectComponent.IProps> {
   state = {
     showPro: false,
-    showFilter: true,
+    showFilter: false,
     filter: '',
     filterTags: [],
     filterList: this.props.projectList,
@@ -57,6 +57,7 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
       <div className="project-box">
         <div className="search-box">
           <Input
+            size="middle"
             placeholder="查询项目"
             allowClear
             addonAfter={

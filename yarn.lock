@@ -1740,6 +1740,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.2.tgz#9565ed5c72ba96038fc3add643edd5e7820598e7"
   integrity sha512-SRH6QM0IMOBBFmDiJ75vlhcbUEYEquvSuhsVW9ijG20JvdFTfOrB1p6ddZxz5y/JNnbf+9HoHhjhOVSX2hsJyA==
 
+"@types/node@^14.14.6":
+  version "14.14.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
+  integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://npm.corp.kuaishou.com/@types%2fparse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -3642,6 +3647,13 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+cross-env@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.2.tgz#bd5ed31339a93a3418ac4f3ca9ca3403082ae5f9"
+  integrity sha512-KZP/bMEOJEDCkDQAyRhu3RL2ZO/SUVrxQVI0G3YEQ+OLbRA3c6zgixe8Mq8a/z7+HKlNEjo8oiLUs8iRijY2Rw==
+  dependencies:
+    cross-spawn "^7.0.1"
+
 cross-spawn@7.0.1:
   version "7.0.1"
   resolved "https://npm.corp.kuaishou.com/cross-spawn/-/cross-spawn-7.0.1.tgz#0ab56286e0f7c24e153d04cc2aa027e43a9a5d14"
@@ -3669,6 +3681,15 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     semver "^5.5.0"
     shebang-command "^1.2.0"
     which "^1.2.9"
+
+cross-spawn@^7.0.1:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
+  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+  dependencies:
+    path-key "^3.1.0"
+    shebang-command "^2.0.0"
+    which "^2.0.1"
 
 crypto-browserify@^3.11.0:
   version "3.12.0"
@@ -10836,12 +10857,12 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://npm.corp.kuaishou.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha1-oUEMLt2PB3sItOJTyOrPyvBXRhw=
 
-simple-dag-editor@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/simple-dag-editor/-/simple-dag-editor-1.1.4.tgz#9ea52e9232225a8a6c807cd507509a6970fe3f23"
-  integrity sha512-xrGmUiUlYjseftp+yxrrsN5rWJdGVt300W1W/jApFXuiyHzv7tdWmmdafpovOuL134fD3L8cNYUT0Fe/ev4Dpg==
+simple-dag-editor@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/simple-dag-editor/-/simple-dag-editor-1.1.9.tgz#46824c28abc1fc7b4294392b31792295c85af013"
+  integrity sha512-qX2LcRejDOTN24c60zjJRUv+3bMqvjYtZtb4WmZHp24laPA7XD9sHfw3MKs5U0fB0dXll0NwDsFz3/zAA3eNMw==
   dependencies:
-    tinycolor2 "^1.4.2"
+    "@types/node" "^14.14.6"
     typescript "^4.0.3"
 
 simple-swizzle@^0.2.2:
@@ -11538,7 +11559,7 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.3:
   resolved "https://npm.corp.kuaishou.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha1-lKMNtFPfTGQ9D9VmBg1gqHXYR1Q=
 
-tinycolor2@^1.4.1, tinycolor2@^1.4.2:
+tinycolor2@^1.4.1:
   version "1.4.2"
   resolved "https://npm.corp.kuaishou.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
   integrity sha1-P2pNEHGtB2dtf6Ry4frECnGdiAM=

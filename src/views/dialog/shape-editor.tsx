@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Drawer, Row, Form, Col, Input, Select, InputNumber, message } from 'antd'
+import { Button, Drawer, Form, Input, Select, InputNumber, message } from 'antd'
 import { Dispatch } from 'redux'
 import { Shapes } from 'src/store/shape'
 import COLOR from 'src/lib/color'
@@ -8,6 +8,8 @@ import { FormInstance } from 'antd/lib/form'
 import { addShape } from 'src/actions/shape'
 import { connect } from 'react-redux'
 import { IState } from 'src/store'
+
+import { SizeControll } from '../form/form-shape-size'
 
 // default shape
 const defaultShapeForm: ShapeEditor.IForm = {
@@ -67,7 +69,6 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
         className="shape-editor-dialog"
         title="创建一个图形"
         width="300"
-        headerStyle={{ fontSize: '12px', padding: '10px' }}
         closable={ false }
         visible={ this.props.visible }
         onClose={ this.close }
@@ -76,6 +77,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
         }>
 
         <Form
+          size="middle"
           ref={ this.formRef }
           layout="vertical"
           initialValues={ defaultShapeForm }
@@ -129,7 +131,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
           </Form.Item>
 
           <Form.Item label="尺寸" required={ true }>
-            <SizeControll />
+            <SizeControll width="w" height="h"></SizeControll>
           </Form.Item>
 
           <Form.Item noStyle shouldUpdate={ (prev, cur) => prev.color !== cur.color }>
@@ -199,25 +201,7 @@ class ShapeEditor extends React.Component<ShapeEditor.IProps> {
 }
 
 // size fields
-function SizeControll() {
-  return (
-    <Row gutter={ 10 }>
-      <Col span={ 10 }>
-        <Form.Item name="w" noStyle>
-          <Input placeholder="宽" suffix="px" />
-        </Form.Item>
-      </Col>
-      <Col span={ 4 }>
-        <span className="join-span"><i className="iconfont icon-cross"></i></span>
-      </Col>
-      <Col span={ 10 }>
-        <Form.Item name="h" noStyle>
-          <Input placeholder="高" suffix="px" />
-        </Form.Item>
-      </Col>
-    </Row>
-  )
-}
+
 // color preview
 function ColorPreview({ color }: { color : string}) {
   return (
@@ -235,8 +219,8 @@ function Footer({
 }) {
   return (
     <div className="btn-box">
-      <Button type="primary" onClick={ onSubmit }>确定</Button>
-      <Button onClick={ onCancel }>取消</Button>
+      <Button type="primary" onClick={ onSubmit } size="small">确定</Button>
+      <Button onClick={ onCancel } size="small">取消</Button>
     </div>
   )
 }

@@ -16,3 +16,11 @@ export const OPEN_DIALOG = 'OPEN_DIALOG'
 export const ADD_PROJECT = 'ADD_PROJECT'
 export const DEL_PROJECT = 'DEL_PROJECT'
 export const UPDATE_PROJECT = 'UPDATE_PROJECT'
+
+// dag
+export const ADD_NODE = 'ADD_NODE'
+export const DEL_NODE = 'DEL_NODE'
+export const UPDATE_NODE = 'UPDATE_NODE'
+export const ADD_EDGE = 'ADD_EDGE'
+export const DEL_EDGE = 'DEL_EDGE'
+export const CLEAN_DAG = 'CLEAN_DAG'

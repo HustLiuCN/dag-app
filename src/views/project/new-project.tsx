@@ -37,7 +37,7 @@ const ProjectEditor = ({
           </Col>
         </Row>
         <div className="divider-line"></div>
-        <Row align="middle">
+        <Row align="middle" className="row">
           <Col className="label" span={ 4 }>项目标签:</Col>
           <Col span={ 20 }>
             <Select
