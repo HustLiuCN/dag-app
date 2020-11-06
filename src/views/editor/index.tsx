@@ -1,15 +1,16 @@
-import * as React from 'react';
+import * as React from 'react'
 import { Editor } from 'simple-dag-editor'
 import ItemPanel from './itempanel'
 import DetailPanel from './node-panel'
 import CanvasPanel from './canvas-panel'
+import DownloadModal from '../dialog/download-modal'
 
-import { IState } from 'src/store';
-import { connect } from 'react-redux';
-import { Shapes } from 'src/store/shape';
-import { Dag } from 'src/store/dag';
-import { Dispatch } from 'redux';
-import { addNode, delNode } from 'src/actions/dag';
+import { IState } from 'src/store'
+import { connect } from 'react-redux'
+import { Shapes } from 'src/store/shape'
+import { Dag } from 'src/store/dag'
+import { Dispatch } from 'redux'
+import { addNode, delNode } from 'src/actions/dag'
 
 class EditorComponent extends React.Component<EditorComponent.IProps, EditorComponent.IState> {
   constructor(props: EditorComponent.IProps) {
@@ -71,6 +72,15 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
       selectedNode: node && this.props.dag.nodes[node.id],
     })
   }
+  // canvas event
+  download = () => {
+    DownloadModal({
+      // TODO default title
+      callback: (n: string, t: string) => {
+        return this.editor?.saveFile(n, t)
+      },
+    })
+  }
   render() {
     const { activeMenu } = this.props
     const { selectedNode } = this.state
@@ -79,7 +89,7 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
                   ?
                   (<DetailPanel selectedNode={ selectedNode } />)
                   :
-                  (<CanvasPanel />)
+                  (<CanvasPanel onDownload={ this.download } />)
 
     return (
       <div className="editor-container" id="editor-container">

@@ -10857,10 +10857,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://npm.corp.kuaishou.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha1-oUEMLt2PB3sItOJTyOrPyvBXRhw=
 
-simple-dag-editor@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/simple-dag-editor/-/simple-dag-editor-1.1.9.tgz#46824c28abc1fc7b4294392b31792295c85af013"
-  integrity sha512-qX2LcRejDOTN24c60zjJRUv+3bMqvjYtZtb4WmZHp24laPA7XD9sHfw3MKs5U0fB0dXll0NwDsFz3/zAA3eNMw==
+simple-dag-editor@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/simple-dag-editor/-/simple-dag-editor-1.1.11.tgz#4b3a1c2d34769e9c075992ddf276f0a9d7a261c4"
+  integrity sha512-PTLyOHd/QYJos7qq78CfDdcWl33QbexRsX8VaEmkWa0QlU+wdQwv69sTbLVX6agxj5+9r99Y/0Y5RxiaoGy7Bg==
   dependencies:
     "@types/node" "^14.14.6"
     typescript "^4.0.3"

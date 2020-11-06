@@ -10,15 +10,15 @@ const ContactView = () => {
       desc: 'stillbold.com',
       link: 'https://www.stillbold.com',
     }, {
-      icon: 'gmail',
-      desc: 'liupeidong1027@gmail.com',
-    }, {
       icon: 'github',
       desc: 'HustLiuCN',
       link: 'https://github.com/HustLiuCN',
     }, {
       icon: 'wechat',
       desc: 'lam2991',
+    }, {
+      icon: 'gmail',
+      desc: 'liupeidong1027@gmail.com',
     },
   ]
   return (

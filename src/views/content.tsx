@@ -12,6 +12,7 @@ const Content = ({ activeMenu }: { activeMenu: string }) => {
       { activeMenu === 'project' && <ProjectComponent /> }
       { activeMenu === 'contact' && <ContactView /> }
       <div className="editor-wrapper">
+        { activeMenu !== 'editor' && <div className="none-click-wrapper"></div> }
         <EditorComponent />
       </div>
     </div>
