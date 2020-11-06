@@ -42,7 +42,6 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
   }
   tagsFilter = (tags: string[]) => {
   //   const list = this.props.projectList.slice()
-  console.log(tags)
     this.setState({
       filterTags: tags,
     })
@@ -52,7 +51,7 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
   }
 
   render() {
-    const { showPro, showFilter, filterList, filterTags } = this.state
+    const { showPro, showFilter, filterTags } = this.state
     return (
       <div className="project-box">
         <div className="search-box">
@@ -79,7 +78,8 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
         </div>
 
         <div className="project-list-box">
-          <ProjectList list={ filterList } />
+          {/* TODO filterList */}
+          <ProjectList list={ this.props.projectList } />
         </div>
       </div>
     )

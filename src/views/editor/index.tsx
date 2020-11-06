@@ -18,7 +18,9 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
 
     // TODO
     this.editor = null
-    this.state = {}
+    this.state = {
+      pageConfig: {},
+    }
   }
   // dom mounted
   componentDidMount() {
@@ -135,6 +137,7 @@ declare namespace EditorComponent {
   export interface IState {
     selectedNode?: Dag.INode,
     selectedNodeId?: string,
+    pageConfig: any,
   }
 }
 

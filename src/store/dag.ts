@@ -7,7 +7,7 @@ export const Dag = {
   info: {},
   config: {},
   nodes: {},
-  edges: {},
+  edges: [],
 }
 
 export const dagReducer: Reducer<Dag.IState> = (state = Dag, action) => {
@@ -51,9 +51,17 @@ function updateNode(nodes: Dag.INodes, node: Dag.INode) {
 export declare namespace Dag {
   export interface IState {
     nodes: INodes,
+    edges: IEdge[],
+  }
+  export interface IDag {
+    nodes: INodes,
+    edges: IEdge[],
   }
   export interface INodes {
     [id: string]: Dag.INode,
+  }
+  export interface IEdge extends Editor.IEdge {
+    id: string,
   }
   export interface INode extends Editor.INode, Shapes.IShape {
     id: string,
