@@ -5,14 +5,17 @@ import { IState } from '../store'
 import EditorComponent from './editor'
 import ProjectComponent from './project'
 import ContactView from './contact'
+import { Dispatch } from 'redux'
+import { toggleMenu } from 'src/actions'
 
-const Content = ({ activeMenu }: { activeMenu: string }) => {
+const Content = ({ activeMenu, toggle }: { activeMenu: string, toggle(m: string): void }) => {
+
   return (
     <div className="content-box">
       { activeMenu === 'project' && <ProjectComponent /> }
       { activeMenu === 'contact' && <ContactView /> }
       <div className="editor-wrapper">
-        { activeMenu !== 'editor' && <div className="none-click-wrapper"></div> }
+        { activeMenu !== 'editor' && <div className="none-click-wrapper" onClick={ toggle.bind(null, 'editor') }></div> }
         <EditorComponent />
       </div>
     </div>
@@ -25,7 +28,16 @@ const mapStateToProps = (state: IState) => {
     activeMenu: menu.activeMenu,
   }
 }
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    toggle: (menu: string) => {
+      dispatch(toggleMenu(menu))
+    },
+  }
+}
+
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Content)

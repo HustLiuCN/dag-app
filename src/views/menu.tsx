@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { Menu as MenuComp } from 'antd'
-import { MenuInfo as MenuEvent } from 'rc-menu/lib/interface'
 
 import { IState } from '../store'
 import { Menu } from '../store/menu'
@@ -12,7 +10,7 @@ class AsideMenu extends React.Component<AsideMenu.IProps> {
   // constructor(props: AsideMenu.IProps) {
   //   super(props)
   // }
-  changeMenu = ({ key }: MenuEvent) => {
+  changeMenu = (key: string) => {
     this.props.toggle(key)
   }
   // componentDidUpdate(prev: AsideMenu.IProps) {
@@ -20,20 +18,20 @@ class AsideMenu extends React.Component<AsideMenu.IProps> {
   // }
 
   render() {
+    const { activeMenu } = this.props
     return (
-      <MenuComp
-        className="aside-menu"
-        theme="dark"
-        defaultSelectedKeys={ [this.props.activeMenu] }
-        onClick={ this.changeMenu }>
+      <div className="aside-menu">
         {
           this.props.menus.map(m => (
-            <MenuComp.Item key={m.key} className="menu-item">
+            <div
+              key={ m.key }
+              className={ `menu-item ${ activeMenu === m.key ? 'active' : '' }` }
+              onClick={ this.changeMenu.bind(null, m.key) }>
               <i className={`iconfont ${m.icon}`}></i>
-            </MenuComp.Item>
+            </div>
           ))
         }
-      </MenuComp>
+      </div>
     )
   }
 }
@@ -41,7 +39,7 @@ class AsideMenu extends React.Component<AsideMenu.IProps> {
 // interface
 export declare namespace AsideMenu {
   export interface IProps extends Menu.IState {
-    toggle(menu: React.Key): void,
+    toggle(menu: string): void,
   }
 }
 // state to props
@@ -54,7 +52,7 @@ const mapStateToProps = (state: IState) => {
 // actions
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    toggle: (menu: React.Key) => {
+    toggle: (menu: string) => {
       dispatch(toggleMenu(menu))
     },
   }

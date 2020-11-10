@@ -59,9 +59,10 @@ class ItemPanel extends React.Component<ItemPanel.IProps, ItemPanel.IState> {
     this.props.dispatch({ type: OPEN_DIALOG, dialogType: 'new-shape' })
   }
   render() {
+    const { visible } = this.props
     const { filter, filterList, openList } = this.state
     return (
-      <div id="editor-itempanel" className="editor-itempanel">
+      <div id="editor-itempanel" className={ `editor-itempanel ${visible ? '' : 'dpn'}` }>
         <div className="search-box">
           <Input
             value={ filter }
@@ -144,6 +145,7 @@ const mapState = (state: IState) => {
 export declare namespace ItemPanel {
   export interface IProps extends Shapes.IState {
     dispatch: Dispatch,
+    visible: boolean,
   }
   export interface IState {
     filter: string,

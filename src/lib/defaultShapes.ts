@@ -1,15 +1,5 @@
 import COLOR from './color'
 
-const shape1 = {
-  w: 160,
-  h: 40,
-  shape: 'default-shape-001',
-  name: '无输入输出的矩形',
-  color: COLOR.blue,
-  anchors: {},
-  category: '矩形',
-}
-
 const shape2 = {
   w: 160,
   h: 40,
@@ -32,7 +22,8 @@ const shape3 = {
     input: 2,
     output: 1,
   },
+  category: '矩形',
 }
 
-const list = [shape1, shape2, shape3]
+const list = [shape2, shape3]
 export default list

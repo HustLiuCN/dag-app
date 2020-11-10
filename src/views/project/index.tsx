@@ -2,16 +2,14 @@ import { Input } from 'antd'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { addProject } from 'src/actions/project'
+import { openDialog } from 'src/actions'
 import { IState } from 'src/store'
 import { Projects } from 'src/store/project'
-import ProjectEditor from './new-project'
 import ProjectList from './project-list'
 import TagsFilter from './tags-filter'
 
 class ProjectComponent extends React.Component<ProjectComponent.IProps> {
   state = {
-    showPro: false,
     showFilter: false,
     filter: '',
     filterTags: [],
@@ -20,15 +18,12 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
 
   // create new project
   toggleShowPro = () => {
-    this.setState({
-      showPro: !this.state.showPro,
-      showFilter: false,
-    })
-  }
-  submitNewProject = (project: Projects.IProject) => {
-    this.props.addProject(project)
-    this.setState({
-      showPro: false,
+    this.props.newProject({
+      saveType: 'save-new',
+      dag: {
+        nodes: [],
+        edges: [],
+      },
     })
   }
   // filter project
@@ -36,8 +31,6 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
     this.setState({
       showFilter: !this.state.showFilter,
       filterTags: [],
-
-      showPro: false,
     })
   }
   tagsFilter = (tags: string[]) => {
@@ -51,7 +44,7 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
   }
 
   render() {
-    const { showPro, showFilter, filterTags } = this.state
+    const { showFilter, filterTags } = this.state
     return (
       <div className="project-box">
         <div className="search-box">
@@ -68,12 +61,11 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
             }
             />
           <i
-            className={ `add-btn iconfont icon-tianjia ${showPro ? 'active' : ''}` }
+            className={ `add-btn iconfont icon-tianjia` }
             onClick={ this.toggleShowPro }></i>
         </div>
 
         <div className={ `extra-box` }>
-          {showPro && <ProjectEditor submit={ this.submitNewProject } />}
           {showFilter && <TagsFilter tags={ this.props.tagList } change={ this.tagsFilter } />}
         </div>
 
@@ -95,15 +87,13 @@ const mapState = (state: IState) => {
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {
-    addProject: (project: Projects.IProject) => {
-      return dispatch(addProject(project))
-    },
+    newProject: (args: any) => dispatch(openDialog('project', args)),
   }
 }
 
 export declare namespace ProjectComponent {
   export interface IProps extends Projects.IState {
-    addProject(p: Projects.IProject): void,
+    newProject(args: any): void,
   }
 }
 

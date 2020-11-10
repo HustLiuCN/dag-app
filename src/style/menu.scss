@@ -1,6 +1,26 @@
 .aside-menu {
   flex: 0 0 48px;
-  // display: flex;
+  background-color: $blue-dk-bg;
+
+  .menu-item {
+    display: flex;
+    height: 40px;
+    margin: 6px 0;
+    align-items: center;
+    justify-content: center;
+
+    color: rgba($color: $white, $alpha: .65);
+    transition: all .3s ease;
+
+    &:hover {
+      color: $white;
+    }
+
+    &.active {
+      color: $white;
+      background-color: $blue;
+    }
+  }
 
   .iconfont {
     font-size: 16px;

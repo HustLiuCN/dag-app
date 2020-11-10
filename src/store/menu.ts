@@ -32,7 +32,7 @@ export declare namespace Menu {
   }
 
   export interface IMenu {
-    key: React.Key,   // string | number
+    key: string,   // string | number
     name: string,
     desc: string,
     icon?: string,

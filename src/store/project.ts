@@ -15,7 +15,7 @@ export const projectsReducer: Reducer<Projects.IState> = (state = Projects, acti
         ...state,
         projectList: [
           ...state.projectList,
-          action.project,
+          addProject(action.project),
         ],
       }
     case DEL_PROJECT:
@@ -42,6 +42,16 @@ export declare namespace Projects {
 }
 
 // handlers
+function addProject(pro: Projects.IProject): Projects.IProject {
+  const tmp = {
+    ...pro,
+    dag: {
+      nodes: pro.dag?.nodes.slice() ?? [],
+      edges: pro.dag?.edges.slice() ?? [],
+    },
+  }
+  return tmp
+}
 function delProject(list: Projects.IProject[], id: string) {
   const i = list.findIndex(li => li.id === id)
   if (i > -1) {

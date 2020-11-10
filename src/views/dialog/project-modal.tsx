@@ -51,7 +51,9 @@ const ProjectModal = ({
       title={ `${args.saveType === 'save-as' ? '另' : '保'}存为项目` }
       className="new-project-dialog"
       onOk={ submit }
-      onCancel={ close }>
+      onCancel={ close }
+      okText="保存"
+      cancelText="取消">
       <Row align="middle" gutter={ 4 }>
         <Col span={ 5 }>项目名称:</Col>
         <Col span={ 19 }>

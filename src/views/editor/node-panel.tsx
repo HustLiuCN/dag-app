@@ -29,11 +29,11 @@ class DetailPanel extends React.Component<DetailPanel.IProps> {
             tooltip={ <small>建议长度在8个字符内</small> }
             rules={[ { required: true, whitespace: true } ]}
             >
-              <Input/>
+              <Input readOnly />
           </Form.Item>
 
           <Form.Item label="尺寸" required>
-            <SizeControll width="w" height="h"></SizeControll>
+            <SizeControll readonly width="w" height="h"></SizeControll>
           </Form.Item>
         </Form>
       </React.Fragment>

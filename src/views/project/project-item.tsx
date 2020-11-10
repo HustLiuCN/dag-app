@@ -4,10 +4,13 @@ import { Projects } from 'src/store/project'
 import { Dispatch } from 'redux'
 import { delProject } from 'src/actions/project'
 import { connect } from 'react-redux'
+import { Dag } from 'src/store/dag'
+import { setDag } from 'src/actions/dag'
 
 const Item = (props: {
   pro: Projects.IProject,
   delProject(id: string): void,
+  chooseProject(dag: Dag.IDag, id: string): void,
 }) => {
   const { pro } = props
 
@@ -17,10 +20,18 @@ const Item = (props: {
   const [name] = useState(pro.name)
   const [tags] = useState(pro.tags)
 
+  // view project
+  const view = () => {
+    let dag = pro.dag ?? { nodes: [], edges: [] }
+    props.chooseProject(dag, pro.id)
+  }
+
   // del project
-  const del = () => {
+  const del = (e: React.MouseEvent) => {
+    e.stopPropagation()
+
     Modal.confirm({
-      title: '确认删除项目？',
+      title: `确认删除项目 ${pro.name} ?`,
       okText: '删除',
       okType: 'danger',
       cancelText: '取消',
@@ -31,7 +42,7 @@ const Item = (props: {
   }
 
   return (
-    <div className="project-item">
+    <div className="project-item" onClick={ view }>
       <div className="project-name">{ name }</div>
       <div className="tag-list">
         {
@@ -52,6 +63,9 @@ const mapDispatch = (dispatch: Dispatch) => {
   return {
     delProject: (id: string) => {
       return dispatch(delProject(id))
+    },
+    chooseProject: (dag: Dag.IDag, id: string) => {
+      return dispatch(setDag(dag, id))
     },
   }
 }

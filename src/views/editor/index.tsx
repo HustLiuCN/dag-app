@@ -41,10 +41,17 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
     this.bind()
   }
   componentDidUpdate(prev: EditorComponent.IProps) {
+    const { project, nodes, edges } = this.props.dag
     if (prev.shape.shapeList !== this.props.shape.shapeList) {
       this.registerShape()
     }
     // TODO
+    if (prev.dag.project !== project) {
+      this.editor?.setData({
+        nodes,
+        edges,
+      })
+    }
     // if (prev.activeMenu !== this.props.activeMenu && this.props.activeMenu === 'editor') {
     //   this.initEditor()
     // }
@@ -72,7 +79,7 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
   selectedNodeChange = (node: Dag.INode) => {
     this.setState({
       selectedNodeId: node?.id,
-      selectedNode: node && this.props.dag.nodes[node.id],
+      selectedNode: node && this.props.dag.nodes.find(n => n.id === node.id),
     })
   }
   // canvas event
@@ -102,7 +109,7 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
 
     return (
       <div className="editor-container" id="editor-container">
-        { activeMenu === 'editor' && <ItemPanel /> }
+        <ItemPanel visible={ activeMenu === 'editor' } />
         <div className="editor-page" id="editor-page"></div>
         {
           activeMenu === 'editor'
