@@ -15,3 +15,7 @@ export function addList<T>(arr: T[], item: T): T[] {
 export function timeStamp16(): string {
   return Date.now().toString(16)
 }
+
+export function isLocal() {
+  return window.location.host.match(/localhost/)
+}

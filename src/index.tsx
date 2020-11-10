@@ -5,6 +5,10 @@ import './style/common.scss'
 import App from './App'
 // import * as serviceWorker from './serviceWorker'
 import { store } from './store'
+import { message } from 'antd'
+
+import { isLocal } from './lib/utils'
+!isLocal() && message.warn('施工中…………', 10)
 
 ReactDOM.render(
   (
