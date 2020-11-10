@@ -5,6 +5,7 @@ import { closeDialog } from 'src/actions'
 import { IState } from 'src/store'
 import { Dialog } from 'src/store/dialog'
 import ShapeEditor from './shape-editor'
+import ProjectModal from './project-modal'
 
 class DialogComponent extends React.Component<DialogComponent.IProps> {
 
@@ -14,9 +15,11 @@ class DialogComponent extends React.Component<DialogComponent.IProps> {
   render() {
     const { visible, type } = this.props
     const shape = visible && type === 'new-shape'
+    const project = visible && type === 'project'
     return (
       <React.Fragment>
-        {shape && <ShapeEditor close={ this.close } visible={ this.props.visible } />}
+        {shape && <ShapeEditor visible={ shape } close={ this.close } />}
+        {project && <ProjectModal visible={ project } close={ this.close } />}
       </React.Fragment>
     )
   }

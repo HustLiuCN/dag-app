@@ -1,7 +1,7 @@
 .btn-box {
   display: flex;
 }
-
+// shape editor
 .shape-editor-dialog {
   .btn-box {
     .ant-btn {
@@ -35,5 +35,15 @@
   .iconfont {
     font-size: 12px;
     color: $grey-dk;
+  }
+}
+
+// download dialog
+
+// new project dialog
+.new-project-dialog {
+  font-size: 12px;
+  .ant-row {
+    margin-bottom: 10px;
   }
 }

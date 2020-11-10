@@ -12,13 +12,12 @@ class AsideMenu extends React.Component<AsideMenu.IProps> {
   // constructor(props: AsideMenu.IProps) {
   //   super(props)
   // }
-  changeMenu({ key }: MenuEvent) {
-    console.log('change')
+  changeMenu = ({ key }: MenuEvent) => {
     this.props.toggle(key)
   }
-  componentDidUpdate(prev: AsideMenu.IProps) {
-    console.log(prev.activeMenu, this.props.activeMenu)
-  }
+  // componentDidUpdate(prev: AsideMenu.IProps) {
+  //   console.log(prev.activeMenu, this.props.activeMenu)
+  // }
 
   render() {
     return (
@@ -26,7 +25,7 @@ class AsideMenu extends React.Component<AsideMenu.IProps> {
         className="aside-menu"
         theme="dark"
         defaultSelectedKeys={ [this.props.activeMenu] }
-        onClick={ this.changeMenu.bind(this) }>
+        onClick={ this.changeMenu }>
         {
           this.props.menus.map(m => (
             <MenuComp.Item key={m.key} className="menu-item">

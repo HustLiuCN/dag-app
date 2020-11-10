@@ -53,12 +53,14 @@ const DownloadModal = ({
 
   Modal.confirm({
     title: '保存到本地',
+    icon: null,
     content: <DownloadModalContent fileName={ name } fileType={ type } onChange={ change } />,
     okText: '保存',
     cancelText: '取消',
     onOk: () => {
       return callback(name, type)
     },
+    // maskClosable: true,
   })
 }
 

@@ -2,16 +2,14 @@ import React from 'react'
 
 const CanvasPanel = ({
   onDownload,
+  onSave,
 }: {
   onDownload(): void,
+  onSave(t: string): void,
 }) => {
-  const saveNew = () => {
-
-  }
-
   const handler = [
-    { icon: 'save-new', label: '保存为项目', event: saveNew },
-    { icon: 'save-as', label: '另存为项目', event: saveNew },
+    { icon: 'save-new', label: '保存为项目', event: onSave.bind(null, 'save-new') },
+    { icon: 'save-as', label: '另存为项目', event: onSave.bind(null, 'save-as') },
     { icon: 'download', label: '下载到本地', event: onDownload },
   ]
 

@@ -1,9 +1,10 @@
 import { CLOSE_DIALOG, OPEN_DIALOG } from "./namespace";
 
-export function openDialog(dialogType: string) {
+export function openDialog(dialogType: string, args?: any) {
   return {
     type: OPEN_DIALOG,
     dialogType,
+    args,
   }
 }
 

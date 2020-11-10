@@ -11,6 +11,7 @@ import { Shapes } from 'src/store/shape'
 import { Dag } from 'src/store/dag'
 import { Dispatch } from 'redux'
 import { addNode, delNode } from 'src/actions/dag'
+import { openDialog } from 'src/actions'
 
 class EditorComponent extends React.Component<EditorComponent.IProps, EditorComponent.IState> {
   constructor(props: EditorComponent.IProps) {
@@ -83,6 +84,12 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
       },
     })
   }
+  save = (t: string) => {
+    this.props.saveProject({
+      saveType: t,
+      dag: this.editor?.getData(),
+    })
+  }
   render() {
     const { activeMenu } = this.props
     const { selectedNode } = this.state
@@ -91,7 +98,7 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
                   ?
                   (<DetailPanel selectedNode={ selectedNode } />)
                   :
-                  (<CanvasPanel onDownload={ this.download } />)
+                  (<CanvasPanel onDownload={ this.download } onSave={ this.save } />)
 
     return (
       <div className="editor-container" id="editor-container">
@@ -123,6 +130,7 @@ const mapDispatch = (dispatch: Dispatch) => {
   return {
     addNode: (node: Dag.INode) => dispatch(addNode(node)),
     delNode: (id: string) => dispatch(delNode(id)),
+    saveProject: (args: any) => dispatch(openDialog('project', args)),
   }
 }
 
@@ -133,6 +141,7 @@ declare namespace EditorComponent {
     dag: Dag.IState,
     addNode(n: Dag.INode): void,
     delNode(id: string): void,
+    saveProject(args: any): void,
   }
   export interface IState {
     selectedNode?: Dag.INode,
