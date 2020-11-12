@@ -33,6 +33,10 @@ main {
   background-color: $grey;
 }
 
+.disabled {
+  color: $ft-lt;
+}
+
 // antd reset
 .ant-select-selector,
 .ant-input,
@@ -47,3 +51,4 @@ main {
   display: flex;
   align-items: center;
 }
+

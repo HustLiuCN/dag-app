@@ -148,6 +148,7 @@
     border-bottom: 1px solid $grey;
   }
 
+  // canvas panel
   .canvas-panel {
     flex: 1;
     display: flex;
@@ -156,10 +157,12 @@
 
     .info-box {
       flex: 1;
+
+      .ant-row {
+        margin: 5px 0;
+      }
     }
     .handler-box {
-      // flex: 0 0 102px;
-      // color: $ft-sub;
       margin: 0 -10px;
     }
 

@@ -1,11 +1,12 @@
 import { Reducer } from "redux"
 import { Editor } from "simple-dag-editor"
-import { ADD_NODE, CLEAR_DAG, DEL_NODE, SET_DAG, UPDATE_NODE } from "src/actions"
-import { removeListByIndex } from "src/lib/utils"
+import { ADD_EDGE, ADD_NODE, CLEAR_DAG, DEL_EDGE, DEL_NODE, SET_DAG, UPDATE_NODE } from "src/actions"
+import { List } from "src/lib/utils"
 import { Shapes } from "./shape"
 
 export const Dag = {
-  config: {},
+  // config: {},
+  changed: false,
   project: '',
   nodes: [],
   edges: [],
@@ -13,6 +14,7 @@ export const Dag = {
 
 export const dagReducer: Reducer<Dag.IState> = (state = Dag, action) => {
   switch(action.type) {
+    // node
     case ADD_NODE:
     case UPDATE_NODE:
       return {
@@ -24,11 +26,22 @@ export const dagReducer: Reducer<Dag.IState> = (state = Dag, action) => {
         ...state,
         nodes: delNode(state.nodes, action.id),
       }
+    // edge
+    case ADD_EDGE:
+      return {
+        ...state,
+        edges: addEdge(state.edges, action.edge),
+      }
+    case DEL_EDGE:
+      return {
+        ...state,
+        edges: delEdge(state.edges, action.id),
+      }
     case SET_DAG:
       return {
         ...state,
         project: action.pid,
-        ...action.dag,
+        ...copyDag(action.dag),
       }
     case CLEAR_DAG:
       return {
@@ -42,35 +55,33 @@ export const dagReducer: Reducer<Dag.IState> = (state = Dag, action) => {
   }
 }
 
-// function addNode(nodes: Dag.INodes, node: Dag.INode) {
-//   return {
-//     ...nodes,
-//     [node.id]: node,
-//   }
-// }
-
+// handlers
 function delNode(nodes: Dag.INode[], id: string) {
-  const i = nodes.findIndex(n => n.id === id)
-  return i > -1 ? removeListByIndex(nodes, i) : nodes
+  return List.remove(nodes, nodes.findIndex(n => n.id === id))
 }
-
 function updateNode(nodes: Dag.INode[], node: Dag.INode) {
-  const i = nodes.findIndex(n => n.id === node.id)
-  if (i < 0) {
-    return nodes
+  return List.updateInsert(nodes, node, nodes.findIndex(n => n.id === node.id))
+}
+function addEdge(edges: Dag.IEdge[], edge: Dag.IEdge) {
+  return List.insert(edges, edge)
+}
+function delEdge(edges: Dag.IEdge[], edge: Dag.IEdge) {
+  return List.remove(edges, edges.findIndex(e => e.id === edge.id))
+}
+function copyDag(dag: Dag.IDag) {
+  return {
+    nodes: dag.nodes.slice(),
+    edges: dag.edges.slice(),
   }
-  return [
-    ...nodes.slice(0, i),
-    node,
-    ...nodes.slice(i + 1),
-  ]
 }
 
+// interface
 export declare namespace Dag {
   export interface IState {
     project?: string,
     nodes: INode[],
     edges: IEdge[],
+    changed: boolean,
   }
   export interface IDag {
     nodes: INode[],

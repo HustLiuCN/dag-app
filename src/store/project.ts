@@ -1,6 +1,6 @@
 import { Reducer } from "redux"
 import { ADD_PROJECT, DEL_PROJECT } from "src/actions"
-import { removeListByIndex } from "src/lib/utils"
+import { List } from "src/lib/utils"
 import { Dag } from "./dag"
 
 export const Projects = {
@@ -53,9 +53,5 @@ function addProject(pro: Projects.IProject): Projects.IProject {
   return tmp
 }
 function delProject(list: Projects.IProject[], id: string) {
-  const i = list.findIndex(li => li.id === id)
-  if (i > -1) {
-    return removeListByIndex(list, i)
-  }
-  return list
+  return List.remove(list, list.findIndex(li => li.id === id))
 }

@@ -3,7 +3,7 @@ import { Editor } from 'simple-dag-editor'
 import { ADD_SHAPE, DEL_SHAPE, ADD_CATEGORY, DEL_CATEGORY } from '../actions'
 import defaultShapes from 'src/lib/defaultShapes'
 
-import { removeListByIndex, addList } from '../lib/utils'
+import { List } from '../lib/utils'
 
 export const Shapes = {
   shapeList: [
@@ -48,32 +48,26 @@ export declare namespace Shapes {
   }
   export interface IShape extends Editor.IShape {
     category?: string,
-    graph?: 'rect' | 'ellipse' | 'circle' | 'diamond',
+    graph?: 'rect',
     [custom_key: string]: any,
   }
 }
 
 // handlers
 function addShape(list: Shapes.IShape[], shape: Shapes.IShape): Shapes.IShape[] {
-  return list.find(li => li.shape === shape.name) ? list : addList(list, shape)
+  // TODO
+  return List.insert(list, shape)
 }
 
 function delShape(list: Shapes.IShape[], name: string): Shapes.IShape[] {
-  let i = list.findIndex(li => li.shape === name)
-  if (i > -1) {
-    return removeListByIndex(list, i)
-  }
-  return list
+  return List.remove(list, list.findIndex(li => li.shape === name))
 }
 
 function addCategory(list: string[], category: string): string[] {
+  // TODO
   return list.indexOf(category) > -1 ? list : [ ...list, category ]
 }
 
 function delCategory(list: string[], category: string): string[] {
-  let i = list.indexOf(category)
-  if (i > -1) {
-    return removeListByIndex(list, i)
-  }
-  return list
+  return List.remove(list, list.indexOf(category))
 }
