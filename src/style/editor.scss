@@ -85,6 +85,7 @@
 
       &:hover {
         border-color: $blue-lt;
+        border-style: dashed;
         background-color: lighten($blue-lt, .3);
         color: $blue;
       }
@@ -121,7 +122,6 @@
     left: 0;
     top: 0;
     cursor: default;
-    // background-color: #F3F4F8;
   }
 }
 

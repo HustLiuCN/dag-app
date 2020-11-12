@@ -1,20 +1,21 @@
-import { Col, Row } from 'antd'
+import { Col, Row, Switch } from 'antd'
 import React from 'react'
 import { Editor } from 'simple-dag-editor'
-import { Dag } from 'src/store/dag'
 
 const CanvasPanel = ({
   project,
   onDownload,
   onSave,
   config,
-  dag,
+  grid,
+  toggleGrid,
 }: {
   project?: string,
   onDownload(): void,
   onSave(t: string): void,
   config?: Editor.IPageConfig,
-  dag: Dag.IState,
+  grid?: boolean,
+  toggleGrid(): void,
 }) => {
   const handler = [
     { icon: 'save-new', label: '保存为项目', event: onSave.bind(null, 'save-new') },
@@ -41,10 +42,12 @@ const CanvasPanel = ({
             <Col span={ 8 }>画布尺寸:</Col>
             <Col>{ config?.width } * { config?.height }</Col>
           </Row>
-          {/* <Row>
-            <Col span={ 8 }>画布颜色:</Col>
-            <Col>#123456</Col>
-          </Row> */}
+          <Row>
+            <Col span={ 8 }>画布网格:</Col>
+            <Col>
+              <Switch defaultChecked checked={ grid } size="small" onChange={ toggleGrid } />
+            </Col>
+          </Row>
         </div>
         <div className="handler-box">
           {

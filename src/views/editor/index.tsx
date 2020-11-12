@@ -34,12 +34,14 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
       container: '#editor-container',
       itempanel: '#editor-itempanel',
       page: '#editor-page',
+      config: { grid: true },
     })
     this.editor = editor
     this.registerShape()
     this.bind()
     this.setState({
       pageConfig: editor.pageConfig,
+      grid: editor.extraConfig.grid,
     })
     // force update
     this.forceUpdate()
@@ -114,9 +116,15 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
       dag: this.editor?.getData(),
     })
   }
+  toggleGrid = () => {
+    this.setState(state => ({ grid: !state.grid }), () => {
+      this.editor?.setConfig({ grid: this.state.grid })
+    })
+
+  }
   render() {
-    const { activeMenu, dag } = this.props
-    const { selectedNode, projectName, pageConfig } = this.state
+    const { activeMenu } = this.props
+    const { selectedNode, projectName, pageConfig, grid } = this.state
 
     const panel = selectedNode
                   ?
@@ -130,8 +138,9 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
                   (
                     <CanvasPanel
                       project={ projectName }
-                      dag={ dag }
                       config={ pageConfig }
+                      grid={ grid }
+                      toggleGrid={ this.toggleGrid }
                       onDownload={ this.download }
                       onSave={ this.save }
                       />
@@ -196,6 +205,7 @@ declare namespace EditorComponent {
     selectedNodeId?: string,
     pageConfig?: Editor.IPageConfig,
     projectName?: string,
+    grid?: boolean,
   }
   export type EditorEvent = 'addNode' | 'updateNode' | 'delNode' | 'addEdge' | 'delEdge'
 }
