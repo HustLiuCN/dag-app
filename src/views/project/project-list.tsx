@@ -4,14 +4,16 @@ import Item from './project-item'
 
 const ProjectList = ({
   list,
+  current,
 }: {
   list: Projects.IProject[],
+  current?: string,
 }) => {
   return (
     <div className="project-list">
       {
         list.map(p => (
-          <Item pro={ p } key={ p.id } />
+          <Item pro={ p } key={ p.id } selected={ current === p.id } />
         ))
       }
     </div>

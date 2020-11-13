@@ -10,23 +10,21 @@ import { connect } from 'react-redux'
 import { Shapes } from 'src/store/shape'
 import { Dag } from 'src/store/dag'
 import { Dispatch } from 'redux'
-import { addEdge, addNode, delEdge, delNode, updateNode } from 'src/actions/dag'
+import { addEdge, addNode, delEdge, delNode, saveDagAsProject, updateNode } from 'src/actions/dag'
 import { openDialog } from 'src/actions'
 import { Projects } from 'src/store/project'
+import { updateProject } from 'src/actions/project'
+import { message } from 'antd'
 
 class EditorComponent extends React.Component<EditorComponent.IProps, EditorComponent.IState> {
   constructor(props: EditorComponent.IProps) {
     super(props)
-
-    // TODO
-    // this.editor = null
     this.state = {}
   }
   // dom mounted
   componentDidMount() {
     this.initEditor()
   }
-  // TODO
   // init editor
   editor?: Editor
   initEditor = () => {
@@ -53,7 +51,6 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
     if (prev.shapes !== shapes) {
       this.registerShape()
     }
-    // TODO
     if (prev.dag.project !== project) {
       this.updateProjectName()
     }
@@ -104,23 +101,42 @@ class EditorComponent extends React.Component<EditorComponent.IProps, EditorComp
   // canvas event
   download = () => {
     DownloadModal({
-      // TODO default title
+      title: this.state.projectName || '未命名',
       callback: (n: string, t: string) => {
         return this.editor?.saveFile(n, t)
       },
     })
   }
   save = (t: string) => {
-    this.props.triggerProjectModal({
-      saveType: t,
-      dag: this.editor?.getData(),
-    })
+    const { dag, triggerProjectModal, saveDag, updateProject } = this.props
+    const { projectName } = this.state
+    if (dag.project && projectName && t !== 'save-as') {
+      // update project
+      updateProject({
+        id: dag.project,
+        name: projectName,
+        dag: {
+          nodes: dag.nodes,
+          edges: dag.edges,
+        },
+      })
+      message.success(`${projectName}项目保存成功`)
+    } else {
+      triggerProjectModal({
+        saveType: t,
+        dag: this.editor?.getData(),
+        callback: (id: string) => {
+          if (t === 'save-new') {
+            saveDag(id)
+          }
+        },
+      })
+    }
   }
   toggleGrid = () => {
     this.setState(state => ({ grid: !state.grid }), () => {
       this.editor?.setConfig({ grid: this.state.grid })
     })
-
   }
   render() {
     const { activeMenu } = this.props
@@ -182,6 +198,9 @@ const mapDispatch = (dispatch: Dispatch) => {
     // edge
     addEdge: (e: Dag.IEdge) => dispatch(addEdge(e)),
     delEdge: (id: string) => dispatch(delEdge(id)),
+    // save dag as project
+    saveDag: (id: string) => dispatch(saveDagAsProject(id)),
+    updateProject: (p: Projects.IProject) => dispatch(updateProject(p)),
     // open project modal
     triggerProjectModal: (args: any) => dispatch(openDialog('project', args)),
   }
@@ -198,6 +217,8 @@ declare namespace EditorComponent {
     delNode(id: string): void,
     addEdge(e: Dag.IEdge): void,
     delEdge(id: string): void,
+    saveDag(id: string): void,
+    updateProject(p: Projects.IProject): void,
     triggerProjectModal(args: any): void,
   }
   export interface IState {

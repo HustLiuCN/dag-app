@@ -1,5 +1,5 @@
 import { Dag } from "src/store/dag"
-import { ADD_NODE, DEL_NODE, SET_DAG, UPDATE_NODE, CLEAR_DAG, ADD_EDGE, DEL_EDGE, TOGGLE_DAG_STATUS } from "./namespace"
+import { ADD_NODE, DEL_NODE, SET_DAG, UPDATE_NODE, CLEAR_DAG, ADD_EDGE, DEL_EDGE, TOGGLE_DAG_STATUS, SAVE_DAG_PROJECT } from "./namespace"
 
 export const addNode = (node: Dag.INode) => {
   return {
@@ -36,11 +36,20 @@ export const delEdge = (id: string) => {
   }
 }
 
+// set dag with project[dag]
 export const setDag = (dag: Dag.IDag, pid: string) => {
   return {
     type: SET_DAG,
     dag,
     pid,    // project_id
+  }
+}
+
+// save dag as a project
+export const saveDagAsProject = (id: string) => {
+  return {
+    type: SAVE_DAG_PROJECT,
+    id,
   }
 }
 

@@ -1,5 +1,5 @@
 import { Reducer } from "redux"
-import { ADD_PROJECT, DEL_PROJECT } from "src/actions"
+import { ADD_PROJECT, DEL_PROJECT, UPDATE_PROJECT } from "src/actions"
 import { List } from "src/lib/utils"
 import { Dag } from "./dag"
 
@@ -11,12 +11,10 @@ export const Projects = {
 export const projectsReducer: Reducer<Projects.IState> = (state = Projects, action) => {
   switch(action.type) {
     case ADD_PROJECT:
+    case UPDATE_PROJECT:
       return {
         ...state,
-        projectList: [
-          ...state.projectList,
-          addProject(action.project),
-        ],
+        projectList: updateProject(state.projectList, action.project),
       }
     case DEL_PROJECT:
       return {
@@ -42,15 +40,15 @@ export declare namespace Projects {
 }
 
 // handlers
-function addProject(pro: Projects.IProject): Projects.IProject {
-  const tmp = {
+function updateProject(projects: Projects.IProject[], pro: Projects.IProject): Projects.IProject[] {
+  const item = {
     ...pro,
     dag: {
-      nodes: pro.dag?.nodes.slice() ?? [],
-      edges: pro.dag?.edges.slice() ?? [],
+      nodes: pro.dag?.nodes.slice() || [],
+      edges: pro.dag?.edges.slice() || [],
     },
   }
-  return tmp
+  return List.updateInsert(projects, item, projects.findIndex(p => p.id === pro.id))
 }
 function delProject(list: Projects.IProject[], id: string) {
   return List.remove(list, list.findIndex(li => li.id === id))

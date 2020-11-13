@@ -8,6 +8,7 @@ import { Dag } from 'src/store/dag'
 import { setDag } from 'src/actions/dag'
 
 const Item = (props: {
+  selected: boolean,
   pro: Projects.IProject,
   delProject(id: string): void,
   chooseProject(dag: Dag.IDag, id: string): void,
@@ -42,7 +43,7 @@ const Item = (props: {
   }
 
   return (
-    <div className="project-item" onClick={ view }>
+    <div className={ `project-item ${props.selected ? 'active' : ''}` } onClick={ view }>
       <div className="project-name">{ name }</div>
       <div className="tag-list">
         {

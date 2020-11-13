@@ -65,8 +65,3 @@ const DownloadModal = ({
 }
 
 export default DownloadModal
-
-interface IProps {
-  visible: boolean,
-  close(): void,
-}

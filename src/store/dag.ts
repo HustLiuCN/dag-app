@@ -1,6 +1,6 @@
 import { Reducer } from "redux"
 import { Editor } from "simple-dag-editor"
-import { ADD_EDGE, ADD_NODE, CLEAR_DAG, DEL_EDGE, DEL_NODE, SET_DAG, UPDATE_NODE } from "src/actions"
+import { ADD_EDGE, ADD_NODE, CLEAR_DAG, DEL_EDGE, DEL_NODE, SAVE_DAG_PROJECT, SET_DAG, UPDATE_NODE } from "src/actions"
 import { List } from "src/lib/utils"
 import { Shapes } from "./shape"
 
@@ -36,6 +36,11 @@ export const dagReducer: Reducer<Dag.IState> = (state = Dag, action) => {
       return {
         ...state,
         edges: delEdge(state.edges, action.id),
+      }
+    case SAVE_DAG_PROJECT:
+      return {
+        ...state,
+        project: action.id,
       }
     case SET_DAG:
       return {

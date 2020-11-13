@@ -6,6 +6,7 @@ import { Projects } from 'src/store/project'
 import { connect } from 'react-redux'
 import { timeStamp16 } from 'src/lib/utils'
 import { IState } from 'src/store'
+import { Dag } from 'src/store/dag'
 
 const ProjectModal = ({
   visible,
@@ -14,8 +15,11 @@ const ProjectModal = ({
   close,
   addProject,
 }: IProps) => {
+  const { saveType: type } = args
   const [name, setName] = useState('')
   const [tags, setTags] = useState('')
+
+  const title = type === 'save-as' ? '另存' : ( type === 'save-new' ? '保存' : '新建' )
 
   const change = (e: ChangeEvent<HTMLInputElement>, type: string) => {
     const val = e.target.value.trim()
@@ -35,24 +39,26 @@ const ProjectModal = ({
       message.error('已存在同名项目')
       return
     }
+    const id = timeStamp16()
     addProject({
-      id: timeStamp16(),
+      id,
       name,
       tags: tags.split(/[,，]/).filter(t => t.trim().length),
       dag: args.dag,
     })
-    message.success('保存项目成功')
+    message.success(`${title}项目成功`)
+    args.callback && args.callback(id)
     close()
   }
 
   return (
     <Modal
       visible={ visible }
-      title={ `${args.saveType === 'save-as' ? '另' : '保'}存为项目` }
+      title={ `${title}项目` }
       className="new-project-dialog"
       onOk={ submit }
       onCancel={ close }
-      okText="保存"
+      okText="确定"
       cancelText="取消">
       <Row align="middle" gutter={ 4 }>
         <Col span={ 5 }>项目名称:</Col>
@@ -74,7 +80,11 @@ interface IProps extends Projects.IState {
   visible: boolean,
   close(): void,
   addProject(p: Projects.IProject): void,
-  args: any,
+  args: {
+    saveType: string,
+    dag: Dag.IDag,
+    callback?(id: string): void,
+  },
 }
 
 const mapState = (state: IState) => {

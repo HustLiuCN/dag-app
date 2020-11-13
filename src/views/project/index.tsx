@@ -19,7 +19,7 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
   // create new project
   toggleShowPro = () => {
     this.props.newProject({
-      saveType: 'save-new',
+      saveType: 'create-new',
       dag: {
         nodes: [],
         edges: [],
@@ -45,6 +45,7 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
 
   render() {
     const { showFilter, filterTags } = this.state
+    const { projectList, tagList, currentProject } = this.props
     return (
       <div className="project-box">
         <div className="search-box">
@@ -66,12 +67,12 @@ class ProjectComponent extends React.Component<ProjectComponent.IProps> {
         </div>
 
         <div className={ `extra-box` }>
-          {showFilter && <TagsFilter tags={ this.props.tagList } change={ this.tagsFilter } />}
+          {showFilter && <TagsFilter tags={ tagList } change={ this.tagsFilter } />}
         </div>
 
         <div className="project-list-box">
           {/* TODO filterList */}
-          <ProjectList list={ this.props.projectList } />
+          <ProjectList list={ projectList } current={ currentProject } />
         </div>
       </div>
     )
@@ -82,6 +83,7 @@ const mapState = (state: IState) => {
   const { project } = state
   return {
     ...project,
+    currentProject: state.dag.project,
   }
 }
 
@@ -93,6 +95,7 @@ const mapDispatch = (dispatch: Dispatch) => {
 
 export declare namespace ProjectComponent {
   export interface IProps extends Projects.IState {
+    currentProject?: string,
     newProject(args: any): void,
   }
 }
