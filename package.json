@@ -54,6 +54,7 @@
     "@babel/plugin-transform-typescript": "^7.12.1",
     "cross-env": "^7.0.2",
     "customize-cra": "^1.0.0",
+    "electron-builder": "^22.9.1",
     "react-app-rewired": "^2.1.6"
   }
 }
